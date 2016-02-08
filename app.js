@@ -2,10 +2,13 @@ var express = require('express');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var mongoose = require('mongoose');
 
 var port = 3000;
 
-var routes = require('./routes/app');
+var database = 'mongodb://localhost/encapsule';
+
+var routes = require('./routes/capsule-post');
 
 var app = express();
 
@@ -26,6 +29,8 @@ app.use(function(req, res) {
 app.use(function(error, req, res, next) {
    res.send('500: Internal Server Error', 500);
 });
+
+mongoose.connect(database);
 
 app.listen(port, function () {
   console.log('Listening on port ' + port);
